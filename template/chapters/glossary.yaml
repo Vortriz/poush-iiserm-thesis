@@ -1,0 +1,114 @@
+qm:
+    short: QM
+    long: Quantum Measurement (Making things collapse by looking at them)
+    group: Speculative Instrumentation
+
+wf:
+    short: WF
+    long: Wavefunction (A cloud of probability that disappears when observed)
+    group: Speculative Instrumentation
+
+qe:
+    short: QE
+    long: Quantum Entanglement (Spooky action at a distance)
+    group: Speculative Instrumentation
+
+qec:
+    short: QEC
+    long: Quantum Error Correction (Trying to fix qubits before they fall apart)
+    group: Speculative Instrumentation
+
+qpu:
+    short: QPU
+    long: Quantum Processing Unit (A very expensive freezer that sometimes does math)
+    group: Speculative Instrumentation
+
+nisq:
+    short: NISQ
+    long: Noisy Intermediate-Scale Quantum (The era of bad qubits and high noise)
+    group: Speculative Instrumentation
+
+squid:
+    short: SQUID
+    long: Superconducting Quantum Interference Device
+    group: Speculative Instrumentation
+
+he:
+    short: HE
+    long: Heisenberg Equation (Equations that are twice as hard as classical ones)
+    group: Speculative Instrumentation
+
+epr:
+    short: EPR
+    long: EPR Paradox (Einstein, Podolsky, and Rosen complaining about quantum mechanics)
+    group: Speculative Instrumentation
+
+dm:
+    short: DM
+    long: Density Matrix (A matrix of probabilities for mixed states)
+    group: Speculative Physics
+
+qst:
+    short: QST
+    long: Quantum State Tomography (Looking at a qubit from all angles until it dies)
+    group: Speculative Physics
+
+qpt:
+    short: QPT
+    long: Quantum Process Tomography (Tomography for gates instead of states)
+    group: Speculative Physics
+
+hup:
+    short: HUP
+    long: Heisenberg Uncertainty Principle (You can't know where it is and where it's going)
+    group: Speculative Physics
+
+qml:
+    short: QML
+    long: Quantum Machine Learning (Combining two buzzwords for double the funding)
+    group: Statistics & Hype
+
+nn:
+    short: NN
+    long: Neuron-like Node-web (Neural Network)
+    group: Statistics & Hype
+
+cnn:
+    short: CNN
+    long: Convoluted Neural Network
+    group: Statistics & Hype
+
+sbi:
+    short: SBI
+    long: Simulation-Based Guessing (Simulation-Based Inference)
+    group: Statistics & Hype
+
+npe:
+    short: NPE
+    long: Neural Posterior Estimation (AI-based guessing)
+    group: Statistics & Hype
+
+nf:
+    short: NF
+    long: Normalizing Flows (Toothpaste-squeezing probability)
+    group: Statistics & Hype
+
+mcmc:
+    short: MCMC
+    long: Maybe Convert More Coffee (Markov Chain Monte Carlo)
+    group: Statistics & Hype
+
+ns:
+    short: NS
+    long: Needless Searching (Nested Sampling)
+    group: Statistics & Hype
+
+pca:
+    short: PCA
+    long: Principal Component Analysis (Linear projection magic)
+    group: Statistics & Hype
+
+loci:
+    short: LOCI
+    long: Locally Overfitted Combination of Images
+    group: Statistics & Hype

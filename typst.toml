@@ -1,0 +1,29 @@
+[package]
+name = "poush-iiserm-thesis"
+version = "0.1.0"
+entrypoint = "src/lib.typ"
+authors = ["Rishi Vora <@Vortriz>"]
+license = "MIT"
+description = "Thesis template inspired by Timothy Gebhard's doctoral thesis, adapted for IISERM."
+homepage = ""
+repository = "https://github.com/Vortriz/poush"
+keywords = [
+    "thesis",
+    "bachelor",
+    "master",
+    "phd",
+    "doctoral",
+]
+compiler = "0.15.0"
+exclude = [
+    ".git",
+    ".gitignore",
+    "flake.nix",
+    "flake.lock",
+    ".envrc",
+    ".direnv",
+    ".pre-commit-config.yaml",
+    "**/*.pdf",
+]
+
+[tool]
