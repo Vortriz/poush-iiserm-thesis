@@ -1,5 +1,7 @@
 #import "@local/poush:0.1.0": *
 
+// Special pages --------------------------------
+
 #let titlepage(
     title,
     author,
@@ -8,7 +10,7 @@
     set page(
         paper: "a4",
         margin: (
-            top: 2.5in,
+            top: 1.75in,
             bottom: 1in,
             left: 1in,
             right: 1in,
@@ -16,7 +18,9 @@
     )
     set align(center)
 
-    text(size: 20.74pt, weight: "bold", title)
+    par(justify: false, leading: 1em)[
+        #text(size: 20.75pt, weight: "bold", hyphenate: false, title)
+    ]
 
     v(2em)
 
@@ -28,11 +32,13 @@
 
     text(
         style: "italic",
-    )[A dissertation submitted for the partial fulfilment of BS-MS dual degree in Science]
+    )[A dissertation submitted for the partial fulfilment of\ BS-MS dual degree in Science]
 
-    v(3cm)
+    v(2cm)
 
-    image("assets/logo.jpg", width: 8cm)
+    image("assets/iiserm_logo.jpg", width: 8cm)
+
+    v(2cm)
 
     text(weight: "bold")[
         Indian Institute of Science Education and Research, Mohali \
@@ -71,14 +77,20 @@
 
     #if supervisor.len() == 1 {
         align(right)[
-            #supervisor.at(0).name \
-            (Supervisor) \
+            #box()[
+                #align(center)[
+                    #supervisor.at(0).name \ (Supervisor)
+                ]
+            ]
         ]
     } else if supervisor.len() == 2 {
         columns(2)[
             #align(left)[
-                #supervisor.at(0).name \
-                (Co-supervisor) \
+                #box()[
+                    #align(center)[
+                        #supervisor.at(0).name \ (Co-supervisor)
+                    ]
+                ]
             ]
 
             #colbreak()
@@ -92,7 +104,7 @@
 
     #v(9em)
 
-    #align(right)[Dated: #h(7em)]
+    #align(right)[Dated : #h(7.5em)]
 ]
 
 #let declaration(
@@ -117,32 +129,40 @@
 
     This work has not been submitted in part or in full for a degree, a diploma, or a fellowship to any other university or institute. Whenever contributions of others are involved, every effort is made to indicate this clearly, with due acknowledgement of collaborative research and discussions. This thesis is a bonafide record of original work done by me and all sources listed within have been detailed in the bibliography.
 
-    #v(6em)
+    #v(5em)
 
     #align(right)[
-        #author \
-        (Candidate) \
-        Dated: #h(5em)
+        #box()[
+            #align(center)[
+                #author \
+                (Candidate) \
+                Dated : #h(7.5em)
+            ]
+        ]
     ]
 
-    #v(1em)
+    #v(2.5em)
 
     In my capacity as the supervisor of the candidate's project work, I certify that the above statements by the candidate are true to the best of my knowledge.
 
-    #v(6em)
+    #v(5em)
 
     #if supervisor.len() == 1 {
         align(right)[
-            #supervisor.at(0).name \
-            (Supervisor) \
-            Dated: #h(5em)
+            #box()[
+                #align(center)[
+                    #supervisor.at(0).name \
+                    (Supervisor) \
+                    Dated : #h(7.5em)
+                ]
+            ]
         ]
     } else if supervisor.len() == 2 {
         columns(2)[
             #align(left)[
                 #supervisor.at(0).name \
                 (Co-supervisor) \
-                Dated: #h(5em)
+                Dated : #h(7.5em)
             ]
 
             #colbreak()
@@ -150,11 +170,13 @@
             #align(right)[
                 #supervisor.at(1).name \
                 (Co-supervisor) \
-                Dated: #h(5em)
+                Dated : #h(7.5em)
             ]
         ]
     }
 ]
+
+// Main -----------------------------------------
 
 #let iiserm-thesis(
     title: [Title of MS Thesis],
