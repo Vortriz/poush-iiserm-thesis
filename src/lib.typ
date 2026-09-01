@@ -10,17 +10,24 @@
     set page(
         paper: "a4",
         margin: (
-            top: 1.75in,
+            top: 1in,
             bottom: 1in,
             left: 1in,
             right: 1in,
         ),
     )
-    set align(center)
+    set align(center + horizon)
 
-    par(justify: false, leading: 1em)[
-        #text(size: 20.75pt, weight: "bold", hyphenate: false, title)
-    ]
+    par(
+        justify: false,
+        leading: 1em,
+        text(
+            size: 20.75pt,
+            weight: "bold",
+            hyphenate: false,
+            title,
+        ),
+    )
 
     v(2em)
 
@@ -30,15 +37,16 @@
 
     set text(size: 14.4pt)
 
-    text(
-        style: "italic",
-    )[A dissertation submitted for the partial fulfilment of\ BS-MS dual degree in Science]
+    text(style: "italic")[
+        A dissertation submitted for the partial fulfilment of \
+        BS-MS dual degree in Science
+    ]
 
-    v(2cm)
+    v(4.3em)
 
     image("assets/iiserm_logo.jpg", width: 8cm)
 
-    v(2cm)
+    v(4.3em)
 
     text(weight: "bold")[
         Indian Institute of Science Education and Research, Mohali \
@@ -76,35 +84,35 @@
     #v(9em)
 
     #if supervisor.len() == 1 {
-        align(right)[
-            #box()[
-                #align(center)[
-                    #supervisor.at(0).name \ (Supervisor)
-                ]
-            ]
+        set align(right)
+        block[
+            #set align(center)
+
+            #supervisor.at(0).name \ (Supervisor)
         ]
     } else if supervisor.len() == 2 {
         columns(2)[
-            #align(left)[
-                #box()[
-                    #align(center)[
-                        #supervisor.at(0).name \ (Co-supervisor)
-                    ]
-                ]
+            #set align(left)
+            #block[
+                #set align(center)
+
+                #supervisor.at(0).name \ (Co-supervisor)
             ]
 
             #colbreak()
 
-            #align(right)[
-                #supervisor.at(1).name \
-                (Co-supervisor) \
+            #set align(right)
+            #block[
+                #set align(center)
+
+                #supervisor.at(0).name \ (Co-supervisor)
             ]
         ]
     }
 
     #v(9em)
 
-    #align(right)[Dated : #h(7.5em)]
+    #align(right)[Dated: #h(7.5em)]
 ]
 
 #let declaration(
@@ -136,7 +144,7 @@
             #align(center)[
                 #author \
                 (Candidate) \
-                Dated : #h(7.5em)
+                Dated: #h(7.5em)
             ]
         ]
     ]
@@ -153,7 +161,7 @@
                 #align(center)[
                     #supervisor.at(0).name \
                     (Supervisor) \
-                    Dated : #h(7.5em)
+                    Dated: #h(7.5em)
                 ]
             ]
         ]
@@ -162,7 +170,7 @@
             #align(left)[
                 #supervisor.at(0).name \
                 (Co-supervisor) \
-                Dated : #h(7.5em)
+                Dated: #h(7.5em)
             ]
 
             #colbreak()
@@ -170,7 +178,7 @@
             #align(right)[
                 #supervisor.at(1).name \
                 (Co-supervisor) \
-                Dated : #h(7.5em)
+                Dated: #h(7.5em)
             ]
         ]
     }
