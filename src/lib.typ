@@ -60,8 +60,8 @@
     title,
     author,
     reg,
+    case,
     committee-members,
-    supervisor,
     date,
 ) = centered-section(title: "Certificate of Examination")[
     #set par(
@@ -70,72 +70,69 @@
         first-line-indent: 1.5em,
     )
 
-    This is to certify that the dissertation titled #strong(title) submitted by #strong(author) (Reg. No. #text(number-type: "lining", reg)) for the partial fulfillment of BS- MS Dual Degree programme of the institute, has been examined by the thesis committee duly appointed by the institute. The committee finds the work done by the candidate satisfactory and recommends that the report be accepted.
+    This is to certify that the dissertation titled #strong(title) submitted by #strong(author) (Reg. No. #text(number-type: "lining", reg)) for the partial fulfillment of BS- MS Dual Degree programme of IISER Mohali has been examined by the thesis committee duly appointed by the institution. The committee finds the work done by the candidate satisfactory and recommends that the report be accepted.
 
     #v(9em)
 
     #grid(
         columns: (1fr, 1fr, 1fr),
         column-gutter: 1.5cm,
+        row-gutter: 0.5em,
         align: center,
         ..committee-members,
+        [(Examiner 1)],
+        [(Examiner 2)],
+        if case == 1 [
+            (Supervisor)
+        ] else if case == 2 [
+            (Co-supervisor)
+        ] else if case == 3 [
+            (Administrative Guide)
+        ],
     )
 
     #v(9em)
 
-    #if supervisor.len() == 1 {
-        set align(right)
-        block[
-            #set align(center)
-
-            #supervisor.at(0).name \ (Supervisor)
-        ]
-    } else if supervisor.len() == 2 {
-        columns(2)[
-            #set align(left)
-            #block[
-                #set align(center)
-
-                #supervisor.at(0).name \ (Co-supervisor)
-            ]
-
-            #colbreak()
-
-            #set align(right)
-            #block[
-                #set align(center)
-
-                #supervisor.at(0).name \ (Co-supervisor)
-            ]
-        ]
-    }
-
-    #v(9em)
-
-    #align(right)[Dated: #h(7.5em)]
+    Dated:
 ]
 
 #let declaration(
-    supervisor,
+    title,
+    case,
+    committee-members,
+    external-supervisor,
     author,
 ) = centered-section(title: "Declaration")[
-    #let supervisor-array = ()
-
-    #for item in supervisor {
-        supervisor-array.push([#item.name at #item.affiliation])
-    }
-
     #set par(
         justify: true,
         leading: 0.8em,
-        first-line-indent: 1.5em,
+        spacing: 2em,
+        first-line-indent: 0em,
     )
 
-    The work presented in this dissertation has been carried out by me under the guidance of #supervisor-array.join(", ", last: " and ").
+    #let supervisors = ()
+    #if case == 1 or case == 2 {
+        supervisors.push(
+            (
+                name: committee-members.at(2),
+                affiliation: [IISER Mohali],
+            ),
+        )
+    }
+    #if case == 2 or case == 3 {
+        supervisors.push(
+            (
+                name: external-supervisor.name,
+                affiliation: external-supervisor.affiliation,
+            ),
+        )
+    }
 
-    #v(1em)
+    I have carried out the work presented in this dissertation titled #strong(title) under the guidance of #supervisors.map(x => [#x.name at #x.affiliation]).join(" and ")
 
-    This work has not been submitted in part or in full for a degree, a diploma, or a fellowship to any other university or institute. Whenever contributions of others are involved, every effort is made to indicate this clearly, with due acknowledgement of collaborative research and discussions. This thesis is a bonafide record of original work done by me and all sources listed within have been detailed in the bibliography.
+    This work has not been submitted in part or in full for a degree, a diploma, or a fellowship to any other university or institute. Whenever contributions of others are involved, every effort is made to indicate this clearly, with due acknowledgement of collaborative research and discussions.
+
+    This thesis is a bonafide record of original work done by me and all sources listed within have been detailed in the bibliography.
 
     #v(5em)
 
@@ -151,24 +148,24 @@
 
     #v(2.5em)
 
-    In my capacity as the supervisor of the candidate's project work, I certify that the above statements by the candidate are true to the best of my knowledge.
+    In my capacity as the #{ if case == 1 or case == 3 [supervisor] else if case == 2 [co-supervisor] } of the candidate's project work, I certify that the above statements by the candidate are true to the best of my knowledge.
 
     #v(5em)
 
-    #if supervisor.len() == 1 {
+    #if case == 1 or case == 3 {
         align(right)[
             #box()[
                 #align(center)[
-                    #supervisor.at(0).name \
+                    #supervisors.at(0).name \
                     (Supervisor) \
                     Dated: #h(7.5em)
                 ]
             ]
         ]
-    } else if supervisor.len() == 2 {
+    } else if case == 2 {
         columns(2)[
             #align(left)[
-                #supervisor.at(0).name \
+                #supervisors.at(0).name \
                 (Co-supervisor) \
                 Dated: #h(7.5em)
             ]
@@ -176,7 +173,7 @@
             #colbreak()
 
             #align(right)[
-                #supervisor.at(1).name \
+                #supervisors.at(1).name \
                 (Co-supervisor) \
                 Dated: #h(7.5em)
             ]
@@ -191,24 +188,35 @@
     author: [*Name of the Student*],
     date: [Enter Relevant Date],
     reg: [Registration Number of the Student],
+    case: 1,
     committee-members: (
         [Member 1],
         [Member 2],
         [Member 3],
     ),
-    supervisor: (
-        (
-            name: [*Name of the Supervisor*],
-            affiliation: [Indian Institute of Science Education and Research, Mohali],
-        ),
-        // (
-        //     name: "Name of the Co-supervisor",
-        //     affiliation: "Indian Institute of Science Education and Research, Mohali"
-        // ),
-    ),
+    external-supervisor: none,
     colophon-text: none,
     doc,
 ) = {
+    if case == 1 {
+        assert(
+            external-supervisor == none,
+            message: "The status of Supervisor is assigned to Member 3 of the committee.",
+        )
+    } else if case == 2 {
+        assert(
+            external-supervisor != none,
+            message: "Member 3 is the internal co-supervisor. External co-supervisor is required.",
+        )
+    } else if case == 3 {
+        assert(
+            external-supervisor != none,
+            message: "The status of Administrative guide is assigned to Member 3 of the committee. External supervisor is required.",
+        )
+    } else {
+        panic("Invalid case value. Please use 1, 2, or 3.")
+    }
+
     show: thesis
 
     set page(numbering: "i")
@@ -219,9 +227,9 @@
         colophon(colophon-text)
     }
 
-    certificate(title, author, reg, committee-members, supervisor, date)
+    certificate(title, author, reg, case, committee-members, date)
 
-    declaration(supervisor, author)
+    declaration(title, case, committee-members, external-supervisor, author)
 
     doc
 }
