@@ -6,6 +6,7 @@
     title,
     author,
     date,
+    blue-cover: false,
 ) = {
     set page(
         paper: "a4",
@@ -15,6 +16,11 @@
             left: 1in,
             right: 1in,
         ),
+        fill: if blue-cover == true {
+            rgb("#00CCFF")
+        } else {
+            auto
+        },
     )
     set align(center + horizon)
 
@@ -44,7 +50,11 @@
 
     v(4.3em)
 
-    image("assets/iiserm_logo.jpg", width: 8cm)
+    if blue-cover == true {
+        image("assets/iiserm_logo_blue.jpg", width: 8cm)
+    } else if blue-cover == false {
+        image("assets/iiserm_logo.jpg", width: 8cm)
+    }
 
     v(4.3em)
 
@@ -128,7 +138,7 @@
         )
     }
 
-    I have carried out the work presented in this dissertation titled #strong(title) under the guidance of #supervisors.map(x => [#x.name at #x.affiliation]).join(" and ")
+    I have carried out the work presented in this dissertation titled #strong(title) under the guidance of #supervisors.map(x => [#x.name at #x.affiliation]).join(" and ").
 
     This work has not been submitted in part or in full for a degree, a diploma, or a fellowship to any other university or institute. Whenever contributions of others are involved, every effort is made to indicate this clearly, with due acknowledgement of collaborative research and discussions.
 
@@ -196,6 +206,7 @@
     ),
     external-supervisor: none,
     colophon-text: none,
+    blue-cover: false,
     doc,
 ) = {
     if case == 1 {
@@ -221,7 +232,7 @@
 
     set page(numbering: "i")
 
-    titlepage(title, author, date)
+    titlepage(title, author, date, blue-cover: blue-cover)
 
     if colophon-text != none {
         colophon(colophon-text)
