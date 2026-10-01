@@ -9,7 +9,6 @@
     blue-cover: false,
 ) = {
     set page(
-        paper: "a4",
         margin: (
             top: 1in,
             bottom: 1in,
@@ -232,11 +231,30 @@
         panic("Invalid case value. Please use 1, 2, or 3.")
     }
 
+    assert(
+        type(blue-cover) == bool,
+        message: "The `blue-cover` must be a boolean value (true or false).",
+    )
+
     show: thesis
 
-    set page(numbering: "i")
+    set page(paper: "a4")
+
+    show: marginalia.setup.with(
+        book: true,
+        top: 4cm,
+        bottom: 2.88cm,
+        inner: (far: 2.25cm, width: 0cm, sep: 0cm),
+        outer: (far: 2cm, width: 4cm, sep: 0.8cm),
+    )
+
+    show: front-matter
 
     titlepage(title, author, date, blue-cover: blue-cover)
+
+    if blue-cover == true {
+        counter(page).update(1)
+    }
 
     if colophon-text != none {
         colophon(colophon-text)
