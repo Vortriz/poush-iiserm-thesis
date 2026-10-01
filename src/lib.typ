@@ -198,7 +198,7 @@
     author: [*Name of the Student*],
     date: [Enter Relevant Date],
     reg: [Registration Number of the Student],
-    case: 1,
+    case: none,
     committee-members: (
         [Member 1],
         [Member 2],
@@ -209,7 +209,11 @@
     blue-cover: false,
     doc,
 ) = {
-    if case == 1 {
+    if case == none {
+        panic(
+            "The `case` is required. Please provide a value of 1, 2, or 3 based on the type of thesis.",
+        )
+    } else if case == 1 {
         assert(
             external-supervisor == none,
             message: "The status of Supervisor is assigned to Member 3 of the committee.",
