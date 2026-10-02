@@ -62,7 +62,7 @@
         #date
     ]
 
-    pagebreak(to: "odd")
+    pagebreak(weak: true, to: "odd")
 }
 
 #let certificate(
@@ -72,12 +72,14 @@
     case,
     committee-members,
     date,
-) = centered-section(title: "Certificate of Examination")[
+) = [
     #set par(
         justify: true,
         leading: 0.8em,
         first-line-indent: 1.5em,
     )
+
+    = Certificate of Examination
 
     This is to certify that the dissertation titled #strong(title) submitted by #strong(author) (Reg. No. #text(number-type: "lining", reg)) for the partial fulfillment of BS- MS Dual Degree programme of IISER Mohali has been examined by the thesis committee duly appointed by the institution. The committee finds the work done by the candidate satisfactory and recommends that the report be accepted.
 
@@ -111,7 +113,7 @@
     committee-members,
     external-supervisor,
     author,
-) = centered-section(title: "Declaration")[
+) = [
     #set par(
         justify: true,
         leading: 0.8em,
@@ -136,6 +138,8 @@
             ),
         )
     }
+
+    = Declaration
 
     I have carried out the work presented in this dissertation titled #strong(title) under the guidance of #supervisors.map(x => [#x.name at #x.affiliation]).join(" and ").
 
@@ -238,17 +242,9 @@
 
     show: thesis
 
-    set page(paper: "a4")
-
-    show: marginalia.setup.with(
-        book: true,
-        top: 4cm,
-        bottom: 2.88cm,
-        inner: (far: 2.25cm, width: 0cm, sep: 0cm),
-        outer: (far: 2cm, width: 4cm, sep: 0.8cm),
-    )
-
     show: front-matter
+
+    set page(paper: "a4")
 
     titlepage(title, author, date, blue-cover: blue-cover)
 
@@ -265,4 +261,26 @@
     declaration(title, case, committee-members, external-supervisor, author)
 
     doc
+}
+
+#let main-matter = body => {
+    show: marginalia.setup.with(
+        book: true,
+        top: 4cm,
+        bottom: 2.88cm,
+        inner: (far: 2.25cm, width: 0cm, sep: 0cm),
+        outer: (far: 2cm, width: 4cm, sep: 0.8cm),
+    )
+
+    set page(
+        header: wideblock(side: "both", header),
+        numbering: "1",
+    )
+
+    pagebreak(weak: true, to: "odd")
+    counter(page).update(1)
+
+    set heading(numbering: "1.1.1.1")
+
+    body
 }
